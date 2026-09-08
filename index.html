@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REHA Parfumerie</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-color: #FDFBF7;        /* خلفية عاجية دافئة */
+            --card-bg: #FFFFFF;          /* بطاقات بيضاء */
+            --black-accent: #111111;     /* أسود فاخر */
+            --gold-accent: #C5A059;      /* ذهبي ملكي */
+            --gold-light: #E8D3A7;       /* ذهبي فاتح للتحديدات */
+            --text-secondary: #666666;   
+            --shadow-soft: 0 10px 30px rgba(197, 160, 89, 0.08);
+            --shadow-hover: 0 12px 25px rgba(17, 17, 17, 0.12);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--black-accent);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 35px 20px 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 380px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* --- Circular Black Badge & White Logo --- */
+        .logo-wrapper {
+            position: relative;
+            margin-bottom: 12px;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        .logo-circle {
+            width: 160px;
+            height: 160px;
+            background-color: var(--black-accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            position: relative;
+            z-index: 2;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        /* Animated Pulsing Gold Ring Behind Circle */
+        .logo-wrapper::before {
+            content: '';
+            position: absolute;
+            top: -6px;
+            left: -6px;
+            right: -6px;
+            bottom: -6px;
+            border-radius: 50%;
+            border: 1.5px solid var(--gold-accent);
+            animation: goldPulse 2.5s infinite ease-in-out;
+            z-index: 1;
+        }
+
+        .logo-circle img {
+            width: 100%;
+            height: auto;
+            filter: none;
+            object-fit: contain;
+        }
+
+        .logo-wrapper:hover .logo-circle {
+            transform: scale(1.05);
+        }
+
+        .tagline {
+            color: var(--gold-accent);
+            font-size: 0.72rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-bottom: 28px;
+            animation: fadeIn 1s ease-out 0.2s backwards;
+        }
+
+        /* --- Primary Actions Grid --- */
+        .primary-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            width: 100%;
+            margin-bottom: 22px;
+            animation: fadeInUp 0.8s ease-out 0.3s backwards;
+        }
+
+        .btn-action {
+            background: var(--black-accent);
+            color: var(--card-bg);
+            border: 1px solid var(--black-accent);
+            padding: 14px 10px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            text-decoration: none;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .btn-action i {
+            color: var(--gold-accent);
+            font-size: 1rem;
+            transition: color 0.3s ease;
+        }
+
+        .btn-action:hover {
+            background: var(--gold-accent);
+            border-color: var(--gold-accent);
+            color: var(--black-accent);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(197, 160, 89, 0.25);
+        }
+
+        .btn-action:hover i {
+            color: var(--black-accent);
+        }
+
+        /* --- Social & Location Links --- */
+        .links-list {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            animation: fadeInUp 0.8s ease-out 0.4s backwards;
+        }
+
+        .link-card {
+            background: var(--card-bg);
+            border: 1px solid var(--gold-light);
+            border-radius: 14px;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            text-decoration: none;
+            color: var(--black-accent);
+            box-shadow: var(--shadow-soft);
+            transition: all 0.3s ease;
+        }
+
+        .link-card:hover {
+            transform: translateY(-2px);
+            border-color: var(--gold-accent);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .link-info {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .link-info i {
+            font-size: 1.2rem;
+            color: var(--gold-accent);
+            width: 20px;
+            text-align: center;
+            transition: color 0.3s ease;
+        }
+
+        .link-card:hover .link-info i {
+            color: var(--black-accent);
+        }
+
+        .link-title {
+            font-weight: 600;
+            font-size: 0.9rem;
+            letter-spacing: 0.3px;
+        }
+
+        .arrow-icon {
+            color: var(--gold-accent);
+            font-size: 0.75rem;
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        .link-card:hover .arrow-icon {
+            transform: translateX(4px);
+            color: var(--black-accent);
+        }
+
+        /* --- Footer & Copyright --- */
+        footer {
+            margin-top: auto;
+            padding-top: 35px;
+            text-align: center;
+            width: 100%;
+            animation: fadeIn 1s ease-out 0.5s backwards;
+        }
+
+        .copyright {
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .copyright strong {
+            color: var(--black-accent);
+        }
+
+        /* --- Toast Notification --- */
+        .toast {
+            position: fixed;
+            bottom: -60px;
+            background: var(--black-accent);
+            color: var(--gold-accent);
+            border: 1px solid var(--gold-accent);
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            transition: bottom 0.4s ease;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            z-index: 100;
+        }
+
+        .toast.show {
+            bottom: 25px;
+        }
+
+        /* --- Keyframe Animations --- */
+        @keyframes goldPulse {
+            0% {
+                transform: scale(1);
+                opacity: 0.8;
+            }
+            50% {
+                transform: scale(1.08);
+                opacity: 0.3;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 0.8;
+            }
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Logo inside Animated Black Circle -->
+        <div class="logo-wrapper">
+            <div class="logo-circle">
+                <img src="7A5B9597-F4E0-4D95-AB80-8F7D3515D1D8.png" alt="REHA Parfumerie">
+            </div>
+        </div>
+        <div class="tagline">Haute Parfumerie</div>
+
+        <!-- Primary Contact Actions -->
+        <div class="primary-actions">
+            <a href="tel:0665776504" class="btn-action">
+                <i class="fa-solid fa-phone"></i>
+                <span>Appeler</span>
+            </a>
+            <button class="btn-action" onclick="saveContact()">
+                <i class="fa-solid fa-address-card"></i>
+                <span>Enregistrer</span>
+            </button>
+        </div>
+
+        <!-- Links List -->
+        <div class="links-list">
+            <!-- Official Website Link -->
+            <a href="https://luxereo.space/" target="_blank" class="link-card">
+                <div class="link-info">
+                    <i class="fa-solid fa-globe"></i>
+                    <span class="link-title">Site Web (luxereo.space)</span>
+                </div>
+                <i class="fa-solid fa-chevron-right arrow-icon"></i>
+            </a>
+
+            <a href="https://www.instagram.com/reha_parfumerie" target="_blank" class="link-card">
+                <div class="link-info">
+                    <i class="fa-brands fa-instagram"></i>
+                    <span class="link-title">Instagram</span>
+                </div>
+                <i class="fa-solid fa-chevron-right arrow-icon"></i>
+            </a>
+
+            <a href="https://www.tiktok.com/@reha_parfumerie?_r=1&_t=ZS-99NzCcCe7yZ" target="_blank" class="link-card">
+                <div class="link-info">
+                    <i class="fa-brands fa-tiktok"></i>
+                    <span class="link-title">TikTok</span>
+                </div>
+                <i class="fa-solid fa-chevron-right arrow-icon"></i>
+            </a>
+
+            <a href="https://www.facebook.com/share/1JgFj88NpX/?mibextid=wwXIfr" target="_blank" class="link-card">
+                <div class="link-info">
+                    <i class="fa-brands fa-facebook-f"></i>
+                    <span class="link-title">Facebook</span>
+                </div>
+                <i class="fa-solid fa-chevron-right arrow-icon"></i>
+            </a>
+
+            <a href="https://maps.app.goo.gl/Cs2c4HQxNZZwPLqg9?g_st=ic" target="_blank" class="link-card">
+                <div class="link-info">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <span class="link-title">Boutique 1 (Maps)</span>
+                </div>
+                <i class="fa-solid fa-chevron-right arrow-icon"></i>
+            </a>
+
+            <a href="https://maps.app.goo.gl/svft4sj9jWnn8dgWA?g_st=ic" target="_blank" class="link-card">
+                <div class="link-info">
+                    <i class="fa-solid fa-map-pin"></i>
+                    <span class="link-title">Boutique 2 (Maps)</span>
+                </div>
+                <i class="fa-solid fa-chevron-right arrow-icon"></i>
+            </a>
+        </div>
+    </div>
+
+    <!-- Copyright Footer -->
+    <footer>
+        <div class="copyright">
+            &copy; 2026 <strong>REHA Parfumerie</strong>. Tous droits réservés.
+        </div>
+    </footer>
+
+    <div id="toast" class="toast">Contact enregistré !</div>
+
+    <script>
+        function saveContact() {
+            const vcard = "BEGIN:VCARD\n" +
+                          "VERSION:3.0\n" +
+                          "FN:REHA Parfumerie\n" +
+                          "TEL;TYPE=CELL:0665776504\n" +
+                          "URL:https://luxereo.space/\n" +
+                          "END:VCARD";
+            
+            const blob = new Blob([vcard], { type: "text/vcard;charset=utf-8" });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = "REHA_Parfumerie.vcf";
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+
+            showToast("Fiche contact téléchargée !");
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById("toast");
+            toast.innerText = message;
+            toast.classList.add("show");
+            setTimeout(() => {
+                toast.classList.remove("show");
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
